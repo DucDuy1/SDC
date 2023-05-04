@@ -1,4 +1,5 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html layout:decorator="home.html">
 <head>
 <meta charset="UTF-8">
@@ -10,16 +11,27 @@
 		<div class="row">
 			<h6>Update User</h6>
 		</div>
-		<hr/>
+		<hr />
 		<div class="row">
 			<form th:action="@{/user/update}" method="post">
 				<div class="mb-3">
-					<label class="form-label">Id:</label> 
-					<input readonly="readonly" th:value="${user.id}" type="text" name="id" class="form-control" >
+					<label class="form-label">Id:</label> <input readonly="readonly"
+						th:value="${user.id}" type="text" name="id" class="form-control">
 				</div>
 				<div class="mb-3">
-					<label class="form-label">Name:</label> 
-					<input th:value="${user.username}" type="text" name="username" class="form-control" >
+					<label class="form-label">Name:</label> <input
+						th:value="${user.username}" type="text" name="username"
+						class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Email:</label> <input
+						th:value="${user.emailUser}" type="text" name="emailUser"
+						class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Role:</label> <input type="checkbox"
+						name="roles" value="ROLE_ADMIN"> ADMIN <input
+						type="checkbox" name="roles" value="ROLE_MEMBER"> MEMBER
 				</div>
 				<div class="mb-3">
 					<button class="btn btn-primary" type="submit">Save</button>
