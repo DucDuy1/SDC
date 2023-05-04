@@ -30,8 +30,8 @@ public class CouponController {
 
 	@PostMapping("/create")
 	public String create(@ModelAttribute("coupon") @Valid Coupon coupon,
-			@RequestParam("expired_Date") String expired_Date, BindingResult bindingResult) throws ParseException {
-		return couponService.create(coupon, expired_Date, bindingResult);
+			@RequestParam("expired_date") String expired_date, BindingResult bindingResult) throws ParseException {
+		return couponService.create(coupon, expired_date, bindingResult);
 	}
 
 	@GetMapping("/update")

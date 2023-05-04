@@ -36,12 +36,12 @@ public class CouponService {
 	}
 
 	public String create(@ModelAttribute("coupon") @Valid Coupon coupon,
-			@RequestParam("expired_Date") String expired_Date, BindingResult bindingResult) throws ParseException {
+			@RequestParam("expired_date") String expired_date, BindingResult bindingResult) throws ParseException {
 		if (bindingResult.hasErrors()) {
 			return "coupon/create";
 		}
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		coupon.setExpiredDate(dateFormat.parse(expired_Date));
+		coupon.setExpiredDate(dateFormat.parse(expired_date));
 		couponRepo.save(coupon);
 		return "redirect:/coupon/search";
 	}
