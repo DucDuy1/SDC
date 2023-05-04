@@ -12,6 +12,8 @@ import org.springframework.data.repository.query.Param;
 import com.sdc.entity.Bill;
 
 public interface BillRepo extends JpaRepository<Bill, Integer> {
+	//Page<Bill> findByAgeGreaterThanEqual(Date from);
+	
 	@Query("SELECT u FROM Bill u WHERE u.buyDate >= :from")
 	Page<Bill> searchByFrom(@Param("from") Date from, Pageable pageable);
 

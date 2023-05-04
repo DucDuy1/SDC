@@ -26,7 +26,7 @@ public class BillItemsController {
 
 	@PostMapping("/create")
 	public String create(@ModelAttribute BillItems billitems, BindingResult blindingResult, Model model) {
-		return billItemsService.create(billitems, blindingResult, model);
+		return billItemsService.create(billitems, blindingResult);
 	}
 
 	@GetMapping("/update") // ?id=12

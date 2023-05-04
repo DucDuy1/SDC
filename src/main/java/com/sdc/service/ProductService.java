@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +18,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sdc.controller.ProductController;
@@ -45,8 +42,7 @@ public class ProductService {
 		return "product/create";
 	}
 
-	public String create(@ModelAttribute("product") @Valid Product product,
-			@RequestParam(name = "file", required = false) MultipartFile file, BindingResult blindingResult) {
+	public String create(Product product, MultipartFile file, BindingResult blindingResult) {
 		if (blindingResult.hasErrors()) {
 			return "product/create";
 		}
@@ -68,7 +64,7 @@ public class ProductService {
 		return "redirect:/product/search";
 	}
 
-	public void download(@RequestParam("imageURL") String imageURL, HttpServletResponse response) {
+	public void download(String imageURL, HttpServletResponse response) {
 		final String folder = "/Applications";
 		File file = new File(folder + "/" + imageURL);
 		if (file.exists()) {
@@ -80,7 +76,7 @@ public class ProductService {
 		}
 	}
 
-	public String update(@RequestParam("id") int id, Model model) {
+	public String update(int id, Model model) {
 		List<Category> categories = categoryRepo.findAll();
 		model.addAttribute("categories", categories);
 		Product product = productRepo.getById(id);
@@ -88,7 +84,7 @@ public class ProductService {
 		return "product/update.html";
 	}
 
-	public String update(@ModelAttribute Product product) {
+	public String update(Product product) {
 		Product oldOne = productRepo.getById(product.getId());
 		;
 		oldOne.setName(product.getName());
@@ -96,18 +92,13 @@ public class ProductService {
 		return "redirect:/product/search";
 	}
 
-	public String delete(@RequestParam(value = "id") int id) {
+	public String delete(int id) {
 		productRepo.deleteById(id);
 		return "redirect:/product/search";
 	}
 
-	public String search(Model model, @RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "id", required = false) Integer id,
-			@RequestParam(name = "categoryId", required = false) Integer categoryId,
-			@RequestParam(name = "categoryName", required = false) String categoryName,
-			@RequestParam(name = "sortBy", required = false) Integer sortBy,
-			@RequestParam(name = "page", required = false) Integer page,
-			@RequestParam(name = "size", required = false) Integer size) {
+	public String search(Model model, String name, Integer id, Integer categoryId, String categoryName, Integer sortBy,
+			Integer page, Integer size) {
 		if (page == null) {
 			page = 0;
 		}

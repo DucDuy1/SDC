@@ -4,8 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sdc.controller.CouponController;
 import com.sdc.entity.Coupon;
@@ -35,8 +31,7 @@ public class CouponService {
 		return "coupon/create";
 	}
 
-	public String create(@ModelAttribute("coupon") @Valid Coupon coupon,
-			@RequestParam("expired_date") String expired_date, BindingResult bindingResult) throws ParseException {
+	public String create(Coupon coupon, String expired_date, BindingResult bindingResult) throws ParseException {
 		if (bindingResult.hasErrors()) {
 			return "coupon/create";
 		}
@@ -46,14 +41,14 @@ public class CouponService {
 		return "redirect:/coupon/search";
 	}
 
-	public String update(@RequestParam("id") int id, Model model) {
+	public String update(int id, Model model) {
 		Coupon coupon = couponRepo.getById(id);
 		model.addAttribute("coupon", coupon);
 		return "coupon/update.html";
 	}
 
 	@PostMapping("/update")
-	public String update(@ModelAttribute Coupon coupon) {
+	public String update(Coupon coupon) {
 		Coupon oldOne = couponRepo.getById(coupon.getId());
 		;
 		oldOne.setName(coupon.getName());
@@ -61,16 +56,12 @@ public class CouponService {
 		return "redirect:/coupon/search";
 	}
 
-	public String delete(@RequestParam(value = "id") int id) {
+	public String delete(int id) {
 		couponRepo.deleteById(id);
 		return "redirect:/coupon/search";
 	}
 
-	public String search(Model model, @RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "id", required = false) Integer id,
-			@RequestParam(name = "sortBy", required = false) Integer sortBy,
-			@RequestParam(name = "page", required = false) Integer page,
-			@RequestParam(name = "size", required = false) Integer size) {
+	public String search(Model model, String name, Integer id, Integer sortBy, Integer page, Integer size) {
 		if (page == null) {
 			page = 0;
 		}

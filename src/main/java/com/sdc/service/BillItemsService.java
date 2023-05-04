@@ -13,8 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sdc.controller.BillItemsController;
 import com.sdc.entity.Bill;
@@ -46,7 +44,7 @@ public class BillItemsService {
 		return "billitems/create";
 	}
 
-	public String create(@ModelAttribute BillItems billitems, BindingResult blindingResult, Model model) {
+	public String create(BillItems billitems, BindingResult blindingResult) {
 		if (blindingResult.hasErrors()) {
 			return "billitems/create";
 		}
@@ -54,7 +52,7 @@ public class BillItemsService {
 		return "redirect:/billitems/search";
 	}
 
-	public String update(@RequestParam("id") int id, Model model) {
+	public String update(int id, Model model) {
 		BillItems billitems = billItemsRepo.getById(id);
 		model.addAttribute("billitems", billitems);
 		List<Bill> bills = billRepo.findAll();
@@ -64,24 +62,19 @@ public class BillItemsService {
 		return "billitems/update.html";
 	}
 
-	public String update(@ModelAttribute BillItems billitems) {
+	public String update(BillItems billitems) {
 		BillItems oldOne = billItemsRepo.getById(billitems.getBillItemsId());
 		billItemsRepo.save(oldOne);
 		return "redirect:/billitems/search";
 	}
 
-	public String delete(@RequestParam("id") int billItemsId) {
+	public String delete(int billItemsId) {
 		billItemsRepo.deleteById(billItemsId);
 		return "redirect:/billitems/search";
 	}
 
-	public String search(Model model, @RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "billItemsId", required = false) Integer billItemsId,
-			@RequestParam(name = "idBill", required = false) Integer idBill,
-			@RequestParam(name = "productId", required = false) Integer productId,
-			@RequestParam(name = "sortBy", required = false) Integer sortBy,
-			@RequestParam(name = "page", required = false) Integer page,
-			@RequestParam(name = "size", required = false) Integer size) {
+	public String search(Model model, String name, Integer billItemsId, Integer idBill, Integer productId,
+			Integer sortBy, Integer page, Integer size) {
 		if (page == null) {
 			page = 0;
 		}

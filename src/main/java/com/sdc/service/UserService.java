@@ -3,7 +3,6 @@ package com.sdc.service;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sdc.controller.UserController;
 import com.sdc.entity.User;
@@ -34,7 +31,7 @@ public class UserService {
 		return "user/create";
 	}
 
-	public String create(@ModelAttribute("user") @Valid User user, BindingResult blindingResult) {
+	public String create(User user, BindingResult blindingResult) {
 		if (blindingResult.hasErrors()) {
 			return "user/create";
 		}
@@ -45,29 +42,25 @@ public class UserService {
 		return "redirect:/user/search";
 	}
 
-	public String update(@RequestParam("id") int id, Model model) {
+	public String update(int id, Model model) {
 		User user = userRepo.getById(id);
 		model.addAttribute("user", user);
 		return "user/update.html";
 	}
 
-	public String update(@ModelAttribute User user) {
+	public String update(User user) {
 		userRepo.save(user);
 		return "redirect:/user/search";
 	}
 
-	public String delete(HttpServletRequest req, @RequestParam("id") int id) {
+	public String delete(HttpServletRequest req, int id) {
 
 		userRepo.deleteById(id);
 
 		return "redirect:/user/search";
 	}
 
-	public String search(Model model, @RequestParam(name = "username", required = false) String username,
-			@RequestParam(name = "id", required = false) Integer id,
-			@RequestParam(name = "sortBy", required = false) Integer sortBy,
-			@RequestParam(name = "page", required = false) Integer page,
-			@RequestParam(name = "size", required = false) Integer size) {
+	public String search(Model model, String username, Integer id, Integer sortBy, Integer page, Integer size) {
 		if (page == null) {
 			page = 0;
 		}

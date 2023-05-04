@@ -3,7 +3,6 @@ package com.sdc.service;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +16,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sdc.entity.Category;
 import com.sdc.repository.CategoryRepo;
@@ -40,7 +37,7 @@ public class CategoryService {
 		return "category/create";
 	}
 
-	public String create(@ModelAttribute("category") @Valid Category category, BindingResult blindingResult) {
+	public String create(Category category, BindingResult blindingResult) {
 		if (blindingResult.hasErrors()) {
 			return "category/create";
 		}
@@ -48,13 +45,13 @@ public class CategoryService {
 		return "redirect:/category/search";
 	}
 
-	public String update(@RequestParam("id") int id, Model model) {
+	public String update(int id, Model model) {
 		Category category = categoryRepo.getById(id);
 		model.addAttribute("category", category);
 		return "category/update.html";
 	}
 
-	public String update(@ModelAttribute Category category) {
+	public String update(Category category) {
 		Category oldOne = categoryRepo.getById(category.getId());
 		;
 		oldOne.setName(category.getName());
@@ -62,16 +59,12 @@ public class CategoryService {
 		return "redirect:/category/search";
 	}
 
-	public String delete(@RequestParam(value = "id") int id) {
+	public String delete(int id) {
 		categoryRepo.deleteById(id);
 		return "redirect:/category/search";
 	}
 
-	public String search(Model model, @RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "id", required = false) Integer id,
-			@RequestParam(name = "sortBy", required = false) Integer sortBy,
-			@RequestParam(name = "page", required = false) Integer page,
-			@RequestParam(name = "size", required = false) Integer size) {
+	public String search(Model model, String name, Integer id, Integer sortBy, Integer page, Integer size) {
 		if (page == null) {
 			page = 0;
 		}

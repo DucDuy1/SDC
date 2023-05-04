@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sdc.controller.BillController;
 import com.sdc.entity.Bill;
@@ -53,8 +49,7 @@ public class BillService {
 		return "bill/create";
 	}
 
-	public String create(@ModelAttribute("bill") @Valid Bill bill, @RequestParam("buy_date") String buy_date,
-			@RequestParam("coupon_code") String couponCode, BindingResult blindingResult, Model model)
+	public String create(Bill bill, String buy_date, String couponCode, BindingResult blindingResult, Model model)
 			throws ParseException {
 		if (blindingResult.hasErrors()) {
 			List<User> users = userRepo.findAll();
@@ -81,7 +76,7 @@ public class BillService {
 		return "redirect:/bill/search";
 	}
 
-	public String update(@RequestParam("id") int id, Model model) {
+	public String update(int id, Model model) {
 		Bill bill = billRepo.getById(id);
 		model.addAttribute("bill", bill);
 		List<User> users = userRepo.findAll();
@@ -89,25 +84,20 @@ public class BillService {
 		return "bill/update.html";
 	}
 
-	public String update(@ModelAttribute Bill bill) {
+	public String update(Bill bill) {
 		Bill oldOne = billRepo.getById(bill.getId());
 		// set them
 		billRepo.save(oldOne);
 		return "redirect:/bill/search";
 	}
 
-	public String delete(@RequestParam("id") int id) {
+	public String delete(int id) {
 		billRepo.deleteById(id);
 		return "redirect:/bill/search";// url maping
 	}
 
-	public String search(Model model, @RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "userId", required = false) Integer userId,
-			@RequestParam(name = "nameUser", required = false) String nameUser,
-			@RequestParam(name = "fromDate", required = false) String fromDate,
-			@RequestParam(name = "toDate", required = false) String toDate,
-			@RequestParam(name = "page", required = false) Integer page,
-			@RequestParam(name = "size", required = false) Integer size) throws ParseException {
+	public String search(Model model, String name, Integer userId, String nameUser, String fromDate, String toDate,
+			Integer page, Integer size) throws ParseException {
 		if (page == null) {
 			page = 0;
 		}
