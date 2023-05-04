@@ -1,1 +1,1 @@
-# SDC
+# My persional project
