@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html layout:decorator="home.html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create Bill</title>
+
+</head>
+<body>
+	<div layout:fragment="content" class="col-12 col-sm-9">
+		<div class="row">
+			<h6>Create Bill</h6>
+		</div>
+		<hr />
+		<div class="row">
+			<form th:action="@{/bill/create}" method="post">
+				<div class="mb-3">
+					<label class="form-label">Name</label> <input type="text"
+						name="name" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Quantity</label> <input type="text"
+						name="quantity" class="form-control">
+				</div>
+
+				<!-- <div class="mb-3">
+					<label class="form-label" th:text="#{bill.couponCode}"></label> 
+					<input type="text" th:field="*{couponCode}" class="form-control" >
+					<p th:errors=*{couponCode}></p>
+				</div> -->
+				<div class="mb-3">
+					<label class="form-label">Coupon Code:</label> <br> <input
+						type="text" name="coupon_code" class="form-control">
+				</div>
+
+				<div class="mb-3">
+					<label for="id" class="form-label">Total Pay:</label> <br> <input
+						type="text" name="totalPay" class="form-control">
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Buy Date:</label> <br> <input
+						type="date" name="buy_date" class="form-control"
+						placeholder="yyyy-MM-dd">
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">User Id</label> <select name="user.id"
+						class="form-control">
+						<option th:each="r : ${users}" th:value="${r.id}"
+							th:text="${r.username}"></option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<button class="btn btn-primary" type="submit">Create</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

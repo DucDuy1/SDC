@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html layout:decorator="home.html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create Coupon</title>
+</head>
+<body>
+	<div layout:fragment="content" class="col-12 col-sm-9">
+		<div class="row">
+			<h6>Create Coupon</h6>
+		</div>
+		<hr />
+		<div class="row">
+			<form th:action="@{/coupon/create}" method="post">
+				<div class="mb-3">
+					<label class="form-label">Name</label> <input type="text"
+						name="name" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">CouponCode</label> <input type="text"
+						name="couponCode" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">DiscountAmount</label> <input type="text"
+						name="discountAmount" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">ExpiredDate:</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" placeholder="yyyy-MM-dd"
+							name="expired_Date">
+					</div>
+				</div>
+				<div class="mb-3">
+					<button class="btn btn-primary" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

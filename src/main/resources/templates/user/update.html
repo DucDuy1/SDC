@@ -1,0 +1,31 @@
+ <!DOCTYPE html>
+<html layout:decorator="home.html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Update User</title>
+</head>
+<body>
+	<div layout:fragment="content" class="col-12 col-sm-9">
+		<div class="row">
+			<h6>Update User</h6>
+		</div>
+		<hr/>
+		<div class="row">
+			<form th:action="@{/user/update}" method="post">
+				<div class="mb-3">
+					<label class="form-label">Id:</label> 
+					<input readonly="readonly" th:value="${user.id}" type="text" name="id" class="form-control" >
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Name:</label> 
+					<input th:value="${user.username}" type="text" name="username" class="form-control" >
+				</div>
+				<div class="mb-3">
+					<button class="btn btn-primary" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

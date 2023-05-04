@@ -1,0 +1,27 @@
+
+<div th:fragment="menu-section" class="col-12 col-sm-3">
+	<ul class="list-group">
+		<li class="list-group-item list-group-item-action list-group-item-success"><a th:href="@{/category/search}">Manager Category</a></li>
+		<li class="list-group-item list-group-item-action list-group-item-primary"><a th:href="@{/product/search}">Manager Product</a></li>
+		<li class="list-group-item list-group-item-action list-group-item-success"><a th:href="@{/user/search}">Manager User</a></li>
+		<li class="list-group-item list-group-item-action list-group-item-primary"><a th:href="@{/bill/search}">Manager Bill</a></li>
+		<li class="list-group-item list-group-item-action list-group-item-success"><a th:href="@{/billitems/search}">Manager BillItems</a></li>
+		<li class="list-group-item list-group-item-action list-group-item-primary"><a th:href="@{/coupon/search}">Manager Coupon</a></li>
+		<li class="list-group-item list-group-item-action list-group-item-success"><a th:href="@{/bill/thongke}">Statistics Bill By Month</a></li>
+		<li class="list-group-item list-group-item-action list-group-item-primary"><a th:href="@{/bill/thongKe1}">Statistics Quantity Coupon By User</a></li>
+		<li class="list-group-item list-group-item-action list-group-item-success"><a th:href="@{/logout}" style="color: red">LogOut</a></li>
+	</ul>
+
+	<form th:action="@{/logout}" method="post">
+	  <div class="col-12 col-md-2">
+	  <!-- <button type="submid" class="btn btn-primary">Logout</button> -->
+	</div>
+</form>
+<br>
+	<form th:action="@{/login}" method="post">
+	  <div class="col-12 col-md-2" >
+	 <!--  <button type="submid" class="btn btn-primary">Login</button> -->
+	</div>
+	<hr />
+</form>
+</div>

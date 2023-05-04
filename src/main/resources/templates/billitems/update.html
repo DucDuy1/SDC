@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html layout:decorator="home.html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Update Bill</title>
+</head>
+<body>
+	<div layout:fragment="content" class="col-12 col-sm-9">
+		<div class="row">
+			<h6>Update Bill</h6>
+		</div>
+		<hr/>
+		<div class="row">
+			<form th:action="@{/billitems/update}" method="post">
+				 <div class="mb-3">
+					<label class="form-label">Id:</label> 
+					<input readonly="readonly" th:value="${billitems.billItemsId}" type="text" name="billItemsId" class="form-control" >
+				</div> 
+				<div class="mb-3">
+					<label class="form-label">Quantity:</label>
+					<textarea name="content" th:text="${billitems.quantity}" class="form-control">
+					</textarea>
+					</div>
+				<div class="mb-3">
+					<label class="form-label">Product Id:</label> 
+					<select name="product.id" class="form-control">
+						
+						<option th:each="p : ${products}" th:value="${p.id}"
+							th:text="${p.name}" th:selected="${p.id == billitems.product.id}"></option>
+					</select>
+				</div>
+					<div class="mb-3">
+					<label class="form-label">Bill Id:</label> 
+					<select name="bill.billId" class="form-control">
+						
+						<option th:each="r : ${bills}" th:value="${r.id}"
+							th:text="${r.name}" th:selected="${r.id == billitems.bill.id}"></option>
+					</select>
+				</div>
+				
+				<div class="mb-3">
+					<button class="btn btn-primary" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

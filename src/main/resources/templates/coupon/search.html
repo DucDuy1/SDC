@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html layout:decorator="home.html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Search Coupon</title>
+
+</head>
+<body>
+	<div layout:fragment="content" class="col-12 col-sm-9">
+		<div class="row">
+			<form th:action="@{/coupon/search}" method="get">
+				<div class="row">
+					<div class="col-12 col-md-3">
+						<input th:value="${name}" type="text" class="form-control"
+							name="name" placeholder="Find By Name:">
+					</div>
+					<div class="col-12 col-md-3">
+						<input type="text" th:value="${id}" class="form-control" name="id"
+							placeholder="Find By Id:">
+					</div>
+					<div class="col-12 col-md-2">
+						<button type="submit" class="btn btn-primary">Search</button>
+					</div>
+					<div class="col-12 col-md-2">
+						<a th:href="@{/coupon/create}" class="btn btn-success">Add</a>
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<hr />
+		<div class="row">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Coupon Code</th>
+						<th>DiscountAmount</th>
+						<th>ExpiredDate</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="coupon : ${list}">
+						<td th:text="${coupon.id}"></td>
+						<td th:text="${coupon.name}"></td>
+						<td th:text="${coupon.couponCode}"></td>
+						<td th:text="${coupon.discountAmount}"></td>
+						<td th:text="${#dates.format(coupon.expiredDate, 'yyyy-MM-dd')}"></td>
+						<td><a class="text-danger"
+							th:href="@{'/coupon/delete?id=' + ${coupon.id}}">Delete</a> <a
+							th:href="@{'/coupon/update?id=' + ${coupon.id}}">Update</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<ul class="pagination">
+				<li th:if="${totalPage > 0}" class="page-item"><a
+					class="page-link"
+					th:href="@{'/coupon/search?page='+ ${page - 1 < 0 ? 0 : (page - 1)} + '&name=' + ${name}}">Previous</a></li>
+
+				<li th:if="${totalPage > 0}"
+					th:each="i: ${#numbers.sequence(0, totalPage - 1)}"
+					class="page-item"><a class="page-link"
+					th:href="@{'/coupon/search?page='+ ${i} + '&name=' + ${name} }"
+					th:text="${i}"></a></li>
+
+				<li th:if="${totalPage > 0}" class="page-item"><a
+					class="page-link"
+					th:href="@{'/coupon/search?page='+ ${page + 1 >= totalPage ? (totalPage - 1) : (page + 1) } + '&name=' + ${name}}">Next</a></li>
+
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

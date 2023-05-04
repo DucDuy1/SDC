@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html layout:decorator="home.html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create User</title>
+</head>
+<body>
+	<div layout:fragment="content" class="col-12 col-sm-9">
+		<div class="row">
+			<h6>Create User</h6>
+		</div>
+		<hr />
+		<div class="row">
+			<form th:action="@{/user/create}" method="post">
+				<div class="mb-3">
+					<label class="form-label">User Name</label> <input type="text"
+						name="username" class="form-control">
+				</div>
+
+				<!-- 	<div class="mb-3">
+					<label class="form-label" th:text="#{user.name}"></label> 
+					<input type="text" th:field="*{name}" class="form-control" >
+					<p th:errors=*{name}></p>
+				</div> -->
+
+				<div class="mb-3">
+					<label class="form-label">Password</label> <input type="text"
+						name="password" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Email</label> <input type="text"
+						name="email" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Role:</label> <input type="checkbox"
+						name="roles" value="ROLE_ADMIN"> ADMIN <input
+						type="checkbox" name="roles" value="ROLE_MEMBER"> MEMBER
+				</div>
+				<div class="mb-3">
+					<button class="btn btn-primary" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html layout:decorator="home.html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Search Bill</title>
+
+</head>
+<body>
+	<div layout:fragment="content" class="col-12 col-sm-9">
+		<div class="row">
+			<form th:action="@{/bill/search}" method="get">
+				<div class="row">
+					<div class="col-12 col-md-3">
+						<input th:value="${name}" name="name" type="text"
+							class="form-control" placeholder="Find By Name">
+					</div>
+					<div class="col-12 col-md-2">
+						<div class="row">
+							<label class="col">User</label> <select name="nameUser"
+								class="form-select col">
+								<option value="">OptionUser:</option>
+								<option th:each="r : ${users}" th:value="${r.username}"
+									th:text="${r.username}" th:selected="${r.username == nameUser}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="col-12 col-md-2">
+						<div class="row">
+							<label class="col">From:</label> <input th:value="${fromDate}"
+								type="date" name="fromDate" class="form-control col"
+								placeholder="dd/MM/yyyy">
+						</div>
+					</div>
+					<div class="col-12 col-md-2">
+						<div class="row">
+							<label class="col">To:</label> <input th:value="${toDate}"
+								type="date" name="toDate" class="form-control col"
+								placeholder="dd/MM/yyyy">
+						</div>
+					</div>
+					<div class="col-12 col-md-1">
+						<button type="submit" class="btn btn-primary">Search</button>
+					</div>
+					<div class="col-12 col-md-2">
+						<a th:href="@{/bill/create}" class="btn btn-success">Add</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		<hr />
+		<div class="row">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>User Name</th>
+						<th>Quantity</th>
+						<th>Buy Date</th>
+						<th>Coupon Code</th>
+						<th>Total Pay</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="bill : ${list}">
+						<td th:text="${bill.id}"></td>
+						<td th:text="${bill.name}"></td>
+						<td th:text="${bill.user.username}"></td>
+						<td th:text="${bill.quantity}"></td>
+						<td th:text="${#dates.format(bill.buyDate, 'dd-MM-yyyy')}"></td>
+						<td th:text="${bill.couponCode}"></td>
+						<td th:text="${bill.totalPay}"></td>
+						<td><a class="text-danger"
+							th:href="@{'/bill/delete?id=' + ${bill.id}}">Delete</a> <a
+							th:href="@{'/bill/update?id=' + ${bill.id}}">Update</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<ul class="pagination">
+				<li th:if="${totalPage > 0}" class="page-item"><a
+					class="page-link"
+					th:href="@{'/bill/search?page='+ ${page - 1 < 0 ? 0 : (page - 1)} + '&name=' + ${name} + '&userId=' + ${userId} + '&fromDate=' + ${fromDate} + '&toDate=' + ${toDate}}">Previous</a></li>
+
+				<li th:if="${totalPage > 0}"
+					th:each="i: ${#numbers.sequence(0, totalPage - 1)}"
+					class="page-item"><a class="page-link"
+					th:href="@{'/bill/search?page='+ ${i} + '&name=' + ${name} + '&userId=' + ${userId} + '&fromDate=' + ${fromDate} + '&toDate=' + ${toDate} }"
+					th:text="${i}"></a></li>
+
+				<li th:if="${totalPage > 0}" class="page-item"><a
+					class="page-link"
+					th:href="@{'/bill/search?page='+ ${page + 1 >= totalPage ? (totalPage - 1) : (page + 1) } + '&name=' + ${name} + '&userId=' + ${userId} + '&fromDate=' + ${fromDate} + '&toDate=' + ${toDate}}">Next</a></li>
+
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

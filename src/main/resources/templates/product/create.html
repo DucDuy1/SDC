@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html layout:decorator="home.html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create Product</title>
+</head>
+<body>
+	<div layout:fragment="content" class="col-12 col-sm-9">
+		<div class="row">
+			<h6>Create Product</h6>
+		</div>
+		<hr />
+		<div class="row">
+			<form enctype="multipart/form-data" th:action="@{/product/create}"
+				method="post">
+
+				<div class="mb-3">
+					<label class="form-label">Name</label> <input type="text"
+						class="form-control" name="name"> <input type="file"
+						name="file" accept="image/*" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Price</label> <input type="text"
+						name="price" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Quantity</label> <input type="text"
+						name="quantity" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">description</label> <input type="text"
+						name="description" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Category ID</label> <select
+						name="category.id" class="form-control">
+						<option th:each="c : ${categories}" th:value="${c.id}"
+							th:text="${c.name}"></option>
+					</select>
+				</div>
+
+				<div class="mb-3">
+					<button class="btn btn-primary" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

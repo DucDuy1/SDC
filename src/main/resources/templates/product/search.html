@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html layout:decorator="home.html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Search Product</title>
+
+</head>
+<body>
+	<div layout:fragment="content" class="col-12 col-sm-9">
+		<div class="row">
+			<form th:action="@{/product/search}" method="get">
+				<div class="row">
+					<div class="col-12 col-md-2">
+						<input th:value="${name}" type="text" class="form-control"
+							name="name" placeholder="Find By Name:">
+					</div>
+					<div class="col-12 col-md-2">
+						<input type="text" th:value="${id}" class="form-control" name="id"
+							placeholder="Find By Id:">
+					</div>
+					<div class="col-12 col-md-3">
+
+						<div class="row">
+							<label class="col">Category:</label> <select name="categoryName"
+								class="form-select col">
+								<option value="">Option</option>
+								<option th:each="c : ${categories}" th:value="${c.name}"
+									th:text="${c.name}" th:selected="${c.name == categoryName}"></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-2">
+						<button type="submit" class="btn btn-primary">Search</button>
+					</div>
+					<div class="col-12 col-md-2">
+						<a th:href="@{/product/create}" class="btn btn-success">Add</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		<hr />
+		<div class="row">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Price</th>
+						<th>Description</th>
+						<th>Quantity</th>
+						<th>Category</th>
+						<th>Img</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product : ${list}">
+						<td th:text="${product.id}"></td>
+						<td th:text="${product.name}"></td>
+						<td th:text="${product.price}"></td>
+						<td th:text="${product.description}"></td>
+						<td th:text="${product.quantity}"></td>
+						<td th:text="${product.category.name}"></td>
+						<td><img
+							th:src="@{'/product/download?imageURL=' + ${product.imageURL}}"
+							class="logo"></td>
+						<td><a class="text-danger"
+							th:href="@{'/product/delete?id=' + ${product.id}}">Delete</a> <a
+							th:href="@{'/product/update?id=' + ${product.id}}">Update</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<ul class="pagination">
+				<li th:if="${totalPage > 0}" class="page-item"><a
+					class="page-link"
+					th:href="@{'/product/search?page='+ ${page - 1 < 0 ? 0 : (page - 1)} + '&id=' + ${id} + '&name=' + ${name} + '&categoryName=' + ${categoryName}}">Previous</a>
+				</li>
+
+				<li th:if="${totalPage > 0}"
+					th:each="i: ${#numbers.sequence(0, totalPage - 1)}"
+					class="page-item"><a class="page-link"
+					th:href="@{'/product/search?page='+ ${i} + '&id=' + ${id} + '&name=' + ${name} + '&categoryName=' + ${categoryName}}"
+					th:text="${i}"></a></li>
+
+				<li th:if="${totalPage > 0}" class="page-item"><a
+					class="page-link"
+					th:href="@{'/product/search?page='+ ${page + 1 >= totalPage ? (totalPage - 1) : (page + 1) } + '&id=' + ${id} + '&name=' + ${name} + '&categoryName=' + ${categoryName}}">Next</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

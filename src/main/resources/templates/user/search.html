@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html layout:decorator="home.html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Search User</title>
+
+</head>
+<body>
+	<div layout:fragment="content" class="col-12 col-sm-9">
+		<div class="row">
+			<form th:action="@{/user/search}" method="get">
+				<div class="row">
+					<div class="col-12 col-md-2">
+						<input th:value="${username}" type="text" class="form-control"
+							name="username" placeholder="Find By UserName">
+					</div>
+					<div class="col-12 col-md-2">
+						<input type="text" th:value="${id}" class="form-control" name="id"
+							placeholder="Find By Id">
+					</div>
+					<div class="col-12 col-md-2">
+						<button type="submit" class="btn btn-primary">Search</button>
+					</div>
+					<div class="col-12 col-md-2">
+						<a th:href="@{/user/create}" class="btn btn-success">Add</a>
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<hr />
+		<div class="row">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>UserName</th>
+						<th>Email</th>
+						<th>Roles</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${list}">
+						<td th:text="${user.id}"></td>
+						<td th:text="${user.username}"></td>
+						<td th:text="${user.emailUser}"></td>
+						<td th:text="${user.roles}"></td>
+						<td><a class="text-danger"
+							th:href="@{'/user/delete?id=' + ${user.id}}">Delete</a> <a
+							th:href="@{'/user/update?id=' + ${user.id}}">Update</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<ul class="pagination">
+				<li th:if="${totalPage > 0}" class="page-item"><a
+					class="page-link"
+					th:href="@{'/user/search?page='+ ${page - 1 < 0 ? 0 : (page - 1)} + '&username=' + ${username}}">Previous</a></li>
+
+				<li th:if="${totalPage > 0}"
+					th:each="i: ${#numbers.sequence(0, totalPage - 1)}"
+					class="page-item"><a class="page-link"
+					th:href="@{'/user/search?page='+ ${i} + '&username=' + ${username} }"
+					th:text="${i}"></a></li>
+
+				<li th:if="${totalPage > 0}" class="page-item"><a
+					class="page-link"
+					th:href="@{'/user/search?page='+ ${page + 1 >= totalPage ? (totalPage - 1) : (page + 1) } + '&username=' + ${username}}">Next</a></li>
+
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
