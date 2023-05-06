@@ -39,5 +39,4 @@ public class User {
 	@Column(name = "role")
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
 	private List<String> roles;
-
 }

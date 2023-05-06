@@ -85,9 +85,7 @@ public class BillService {
 	}
 
 	public String update(Bill bill) {
-		Bill oldOne = billRepo.getById(bill.getId());
-		// set them
-		billRepo.save(oldOne);
+		billRepo.save(bill);
 		return "redirect:/bill/search";
 	}
 

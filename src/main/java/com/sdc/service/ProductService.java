@@ -85,10 +85,7 @@ public class ProductService {
 	}
 
 	public String update(Product product) {
-		Product oldOne = productRepo.getById(product.getId());
-		;
-		oldOne.setName(product.getName());
-		productRepo.save(oldOne);
+		productRepo.save(product);
 		return "redirect:/product/search";
 	}
 
@@ -141,5 +138,4 @@ public class ProductService {
 		model.addAttribute("sortBy", sortBy == null ? "" : sortBy);
 		return "product/search";
 	}
-
 }

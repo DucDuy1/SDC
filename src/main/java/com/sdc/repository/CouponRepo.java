@@ -13,6 +13,7 @@ public interface CouponRepo extends JpaRepository<Coupon, Integer>{
 	
 	@Query("SELECT u FROM Coupon u WHERE u.name LIKE :x")
 	Page<Coupon> searchAll(@Param("x") String s, Pageable pageable);
+
 	@Query("SELECT u FROM Coupon u WHERE u.id = uId ")
 	Page<Coupon> searchById(@Param("uId") int id, Pageable pageable);
 }

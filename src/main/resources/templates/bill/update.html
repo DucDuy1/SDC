@@ -10,31 +10,46 @@
 		<div class="row">
 			<h6>Update Bill</h6>
 		</div>
-		<hr/>
+		<hr />
 		<div class="row">
-			<form th:action="@{/bill/update}" method="post">
+			<form  th:action="@{/bill/update}" method="post">
 				<div class="mb-3">
-					<label class="form-label">Id:</label> 
-					<input readonly="readonly" th:value="${bill.id}" type="text" name="id" class="form-control" >
+					<label class="form-label">Id:</label> <input readonly="readonly"
+						th:value="${bill.id}" type="text" name="id" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Name:</label> <input
+						th:value="${bill.name}" type="text" name="name" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Coupon Code:</label> <input
+						th:value="${bill.couponCode}" type="text" name="couponCode" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Discount:</label> <input
+						th:value="${bill.discount}" type="text" name="discount" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Total Pay:</label> <input
+						th:value="${bill.totalPay}" type="text" name="totalPay" class="form-control">
 				</div>
 				<div class="mb-3">
 					<label class="form-label">Quantity:</label>
-					<textarea name="content" th:text="${bill.quantity}" class="form-control">
+					<textarea name="quantity" th:text="${bill.quantity}"
+						class="form-control">
 					</textarea>
-					</div>
+				</div>
 				<div class="mb-3">
-					<label class="form-label">User Id:</label> <select
-						name="user.id" class="form-control">
-						
+					<label class="form-label">User Id:</label> <select name="user.id"
+						class="form-control">
 						<option th:each="r : ${users}" th:value="${r.id}"
 							th:text="${r.username}" th:selected="${r.id == bill.user.id}"></option>
 					</select>
 				</div>
 				<div class="mb-3">
-						<label class="col">From:</label> 
-						<input th:value="${#dates.format(bill.buyDate, 'yyyy-MM-dd')}" 
-						type="date" name="buy_date"
-								class="form-control col" >
+					<label class="col">From:</label> <input
+						th:value="${#dates.format(bill.buyDate, 'yyyy-MM-dd')}"
+						type="date" name="buy_date" class="form-control col">
 				</div>
 				<div class="mb-3">
 					<button class="btn btn-primary" type="submit">Save</button>

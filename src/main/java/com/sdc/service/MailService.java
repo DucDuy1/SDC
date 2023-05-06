@@ -17,20 +17,16 @@ public class MailService {
 
 	public void sendEmail(String to, String subject, String body) {
 		try {
-
 			MimeMessage message = javaMailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, StandardCharsets.UTF_8.name());
-
 			helper.setTo(to);
 			helper.setText(body, true);
 			helper.setSubject(subject);
 			helper.setFrom("doducduy1159@gmail.com");
 			javaMailSender.send(message);
-
 		} catch (MessagingException e) {
 			e.printStackTrace();
 //				    logger.error("Email sent with error: " + e.getMessage());
 		}
-
 	}
 }

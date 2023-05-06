@@ -35,5 +35,4 @@ public class BillItems {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "productId")
 	private Product product;
-
 }

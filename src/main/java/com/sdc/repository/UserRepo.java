@@ -20,6 +20,4 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
 	@Query("SELECT u FROM User u WHERE u.id > 1")
 	Page<User> search(@Param("uId") int id, Pageable pageable);
-	
-	
 }

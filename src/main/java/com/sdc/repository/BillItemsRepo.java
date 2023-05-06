@@ -12,5 +12,4 @@ public interface BillItemsRepo extends JpaRepository<BillItems, Integer> {
 	@Query("SELECT u FROM BillItems u JOIN u.bill b JOIN u.product p "
 			+ "WHERE b.name LIKE :x OR p.name LIKE :x AND  b.id = :bId OR p.id = :pId ")
 	Page<BillItems> searchByAll(@Param("x") String name,@Param("bId") int idBill, @Param("pId") int productId, Pageable pageable);
-
 }

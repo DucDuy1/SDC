@@ -23,18 +23,19 @@ public class Bill {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	private String name;
+
 	private String couponCode;
+
 	private int discount;
+
 	private int totalPay;
 
 	private int quantity;
 
 	private Date buyDate;
 
-	private String name;
-
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private User user;
-
 }

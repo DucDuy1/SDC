@@ -36,9 +36,7 @@ public class UserService {
 			return "user/create";
 		}
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-
 		userRepo.save(user);
-
 		return "redirect:/user/search";
 	}
 
@@ -54,9 +52,7 @@ public class UserService {
 	}
 
 	public String delete(HttpServletRequest req, int id) {
-
 		userRepo.deleteById(id);
-
 		return "redirect:/user/search";
 	}
 
@@ -67,17 +63,13 @@ public class UserService {
 		if (size == null) {
 			size = 3;
 		}
-
 		Sort sort = Sort.by("id").ascending();
 		if (sortBy != null && sortBy.equals("username")) {
 			sort = Sort.by("username").ascending();
 		}
-
 		Pageable pageable = PageRequest.of(page, size, sort);
-
 		if (username != null && !username.isEmpty()) {
 			Page<User> pageUser = userRepo.searchAl("%" + username + "%", pageable);
-
 			model.addAttribute("list", pageUser.toList());
 			model.addAttribute("totalPage", pageUser.getTotalPages());
 		} else if (id != null) {
@@ -86,15 +78,12 @@ public class UserService {
 				model.addAttribute("list", Arrays.asList(user));
 			} else
 				logger.info("Id not found");
-
 			model.addAttribute("totalPage", 0);
 		} else {
 			Page<User> pageUser = userRepo.findAll(pageable);
-
 			model.addAttribute("list", pageUser.toList());
 			model.addAttribute("totalPage", pageUser.getTotalPages());
 		}
-
 		model.addAttribute("page", page);
 		model.addAttribute("size", size);
 		model.addAttribute("username", username == null ? "" : username);

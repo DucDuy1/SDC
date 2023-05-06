@@ -49,10 +49,7 @@ public class CouponService {
 
 	@PostMapping("/update")
 	public String update(Coupon coupon) {
-		Coupon oldOne = couponRepo.getById(coupon.getId());
-		;
-		oldOne.setName(coupon.getName());
-		couponRepo.save(oldOne);
+		couponRepo.save(coupon);
 		return "redirect:/coupon/search";
 	}
 
