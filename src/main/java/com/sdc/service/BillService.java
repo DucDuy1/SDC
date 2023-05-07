@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sdc.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import com.sdc.controller.BillController;
-import com.sdc.entity.Bill;
-import com.sdc.entity.StatisticalBill;
-import com.sdc.entity.StatisticalUser;
-import com.sdc.entity.User;
 import com.sdc.repository.BillRepo;
 import com.sdc.repository.CouponRepo;
 import com.sdc.repository.UserRepo;
