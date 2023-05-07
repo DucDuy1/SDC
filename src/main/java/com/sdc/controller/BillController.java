@@ -41,8 +41,8 @@ public class BillController {
 	}
 
 	@PostMapping("/update")
-	public String update(@ModelAttribute Bill bill) {
-		return billService.update(bill);
+	public String update(@ModelAttribute Bill bill, @RequestParam("buy_date") String buy_date)throws ParseException {
+		return billService.update(bill, buy_date);
 	}
 
 	@GetMapping("/delete")
@@ -61,13 +61,13 @@ public class BillController {
 		return billService.search(model, name, userId, nameUser, fromDate, toDate, page, size);
 	}
 
-	@GetMapping("/thongke")
-	public String thongKe(Model model) throws ParseException {
-		return billService.thongKe(model);
+	@GetMapping("/statisticalBillByMonth")
+	public String statisticalBill(Model model) throws ParseException {
+		return billService.statisticalBill(model);
 	}
 
-	@GetMapping("/thongKe1")
-	public String thongKe1(Model model) throws ParseException {
-		return billService.thongKe1(model);
+	@GetMapping("/statisticalCouponByUser")
+	public String statisticalUser(Model model) throws ParseException {
+		return billService.statisticalUser(model);
 	}
 }

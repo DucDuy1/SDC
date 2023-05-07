@@ -63,17 +63,16 @@ public class BillItemsService {
 	}
 
 	public String update(BillItems billitems) {
-		BillItems oldOne = billItemsRepo.getById(billitems.getBillItemsId());
-		billItemsRepo.save(oldOne);
+		billItemsRepo.save(billitems);
 		return "redirect:/billitems/search";
 	}
 
-	public String delete(int billItemsId) {
-		billItemsRepo.deleteById(billItemsId);
+	public String delete(int id) {
+		billItemsRepo.deleteById(id);
 		return "redirect:/billitems/search";
 	}
 
-	public String search(Model model, String name, Integer billItemsId, Integer idBill, Integer productId,
+	public String search(Model model, String name, Integer id, Integer idBill, Integer productId,
 			Integer sortBy, Integer page, Integer size) {
 		if (page == null) {
 			page = 0;
@@ -85,7 +84,7 @@ public class BillItemsService {
 		model.addAttribute("bills", bills);
 		List<Product> products = productRepo.findAll();
 		model.addAttribute("products", products);
-		Sort sort = Sort.by("billItemsId").ascending();
+		Sort sort = Sort.by("id").ascending();
 		if (sortBy != null && sortBy.equals("name")) {
 			sort = Sort.by("name").ascending();
 		} else if (sortBy != null && sortBy.equals("idBill")) {
@@ -93,13 +92,13 @@ public class BillItemsService {
 		} else if (sortBy != null && sortBy.equals("productId")) {
 			sort = Sort.by("productId").ascending();
 		}
-		Pageable pageable = PageRequest.of(page, size, sort); // phân trang
+		Pageable pageable = PageRequest.of(page, size, sort);
 		if (name != null && !name.isEmpty()) {
 			Page<BillItems> pageBillItems = billItemsRepo.searchByAll("%" + name + "%", productId, idBill, pageable);
 			model.addAttribute("list", pageBillItems.toList());
 			model.addAttribute("totalPage", pageBillItems.getTotalPages());
-		} else if (billItemsId != null) {
-			BillItems billItems = billItemsRepo.findById(billItemsId).orElse(null);
+		} else if (id != null) {
+			BillItems billItems = billItemsRepo.findById(id).orElse(null);
 			if (billItems != null) {
 				model.addAttribute("list", Arrays.asList(billItems));
 			} else
@@ -114,7 +113,7 @@ public class BillItemsService {
 		model.addAttribute("page", page);
 		model.addAttribute("size", size);
 		model.addAttribute("name", name == null ? "" : name);
-		model.addAttribute("billItemsId", billItemsId == null ? "" : billItemsId);
+		model.addAttribute("id", id == null ? "" : id);
 		model.addAttribute("idBill", idBill == null ? "" : idBill);
 		model.addAttribute("productId", productId == null ? "" : productId);
 		model.addAttribute("sortBy", sortBy == null ? "" : sortBy);

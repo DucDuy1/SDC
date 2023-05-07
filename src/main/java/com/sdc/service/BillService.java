@@ -19,8 +19,8 @@ import org.springframework.validation.BindingResult;
 
 import com.sdc.controller.BillController;
 import com.sdc.entity.Bill;
-import com.sdc.entity.ThongKe;
-import com.sdc.entity.ThongKeTheoNguoiMua;
+import com.sdc.entity.StatisticalBill;
+import com.sdc.entity.StatisticalUser;
 import com.sdc.entity.User;
 import com.sdc.repository.BillRepo;
 import com.sdc.repository.CouponRepo;
@@ -84,7 +84,9 @@ public class BillService {
 		return "bill/update.html";
 	}
 
-	public String update(Bill bill) {
+	public String update(Bill bill, String buy_date)throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		bill.setBuyDate(sdf.parse(buy_date));
 		billRepo.save(bill);
 		return "redirect:/bill/search";
 	}
@@ -130,33 +132,33 @@ public class BillService {
 		return "bill/search";
 	}
 
-	public String thongKe(Model model) throws ParseException {
-		List<Object[]> list = billRepo.thongKeTheoThang();
-		List<ThongKe> thongKes = new ArrayList<ThongKe>();
+	public String statisticalBill(Model model) throws ParseException  {
+		List<Object[]> list = billRepo.statisticalBillByMonth();
+		List<StatisticalBill> statisticalBills = new ArrayList<StatisticalBill>();
 		if (list != null && !list.isEmpty()) {
 			for (Object[] objects : list) {
-				ThongKe thongKe = new ThongKe();
-				thongKe.setSoLuong(Integer.parseInt((objects[0]).toString()));
-				thongKe.setThang(Integer.parseInt((objects[1]).toString()));
-				thongKes.add(thongKe);
+				StatisticalBill statisticalBill = new StatisticalBill();
+				statisticalBill.setQuantity(Integer.parseInt((objects[0]).toString()));
+				statisticalBill.setByMonth(Integer.parseInt(((objects[1]).toString())));
+				statisticalBills.add(statisticalBill);
 			}
 		}
-		model.addAttribute("thongKes", thongKes);
-		return "bill/thongke";
+		model.addAttribute("statisticalBills", statisticalBills);
+		return "bill/statisticalBillByMonth";
 	}
 
-	public String thongKe1(Model model) throws ParseException {
-		List<Object[]> list = billRepo.thongKeTheoNguoiMua();
-		List<ThongKeTheoNguoiMua> thongKeTheoNguoiMuas = new ArrayList<ThongKeTheoNguoiMua>();
+	public String statisticalUser(Model model) throws ParseException{
+		List<Object[]> list = billRepo.statisticalByUser();
+		List<StatisticalUser> statisticalUsers = new ArrayList<StatisticalUser>();
 		if (list != null && !list.isEmpty()) {
 			for (Object[] objects : list) {
-				ThongKeTheoNguoiMua thongKeTheoNguoiMua = new ThongKeTheoNguoiMua();
-				thongKeTheoNguoiMua.setSoLuong(Integer.parseInt((objects[0]).toString()));
-				thongKeTheoNguoiMua.setNguoiMua(((objects[1]).toString()));
-				thongKeTheoNguoiMuas.add(thongKeTheoNguoiMua);
+				StatisticalUser statisticalUser = new StatisticalUser();
+				statisticalUser.setQuantity(Integer.parseInt((objects[0]).toString()));
+				statisticalUser.setUser(((objects[1]).toString()));
+				statisticalUsers.add(statisticalUser);
 			}
 		}
-		model.addAttribute("thongKeTheoNguoiMuas", thongKeTheoNguoiMuas);
-		return "bill/thongKe1";
+		model.addAttribute("statisticalUsers", statisticalUsers);
+		return "bill/statisticalCouponByUser";
 	}
 }

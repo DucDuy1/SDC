@@ -22,14 +22,38 @@
 					<label class="form-label">Name</label> <input
 						th:value="${product.name}" type="text" name="name"
 						class="form-control">
+					<input type="file"
+						   accept="image/*" class="form-control"
+						   th:value="${product.imageURL}" name="imageURL">
 				</div>
 				<div class="mb-3">
+					<label class="form-label">Price</label> <input
+						th:value="${product.price}" type="text" name="price"
+						class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Quantity</label> <input
+						th:value="${product.quantity}" type="text" name="quantity"
+						class="form-control">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Description</label> <input
+						th:value="${product.description}" type="text" name="description"
+						class="form-control">
+				</div>
+<!--				<div class="mb-3">-->
+<!--					<label class="form-label">Image</label> <input-->
+<!--						th:value="${product.imageURL}" type="text" name="imageURL"-->
+<!--						class="form-control">-->
+<!--					<input type="file"-->
+<!--						   name="file" accept="image/*" class="form-control">-->
+<!--				</div>-->
+				<div class="mb-3">
 					<label class="form-label">Category Name :</label> <select
-						name="category.name" class="form-control">
-
-						<option th:each="c : ${categories}" th:value="${c.name}"
+						name="category.id" class="form-control">
+						<option th:each="c : ${categories}" th:value="${c.id}"
 							th:text="${c.name}"
-							th:selected="${c.name == product.category.name}"></option>
+							th:selected="${c.id == product.category.id}"></option>
 					</select>
 				</div>
 				<div class="mb-3">

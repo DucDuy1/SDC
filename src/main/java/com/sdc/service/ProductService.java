@@ -109,8 +109,8 @@ public class ProductService {
 			sort = Sort.by("name").ascending();
 		}
 		Pageable pageable = PageRequest.of(page, size, sort);
-		if (categoryName != null && categoryName != null && !categoryName.isEmpty()) {
-			Page<Product> pageProduct = productRepo.searchByNameCategory(categoryName, pageable);
+		if (categoryId != null ) {
+			Page<Product> pageProduct = productRepo.searchByIdCategory(categoryId, pageable);
 			model.addAttribute("list", pageProduct.toList());
 			model.addAttribute("totalPage", pageProduct.getTotalPages());
 		} else if (name != null && !name.isEmpty()) {

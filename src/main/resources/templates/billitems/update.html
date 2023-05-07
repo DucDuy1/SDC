@@ -15,8 +15,16 @@
 			<form th:action="@{/billitems/update}" method="post">
 				 <div class="mb-3">
 					<label class="form-label">Id:</label> 
-					<input readonly="readonly" th:value="${billitems.billItemsId}" type="text" name="billItemsId" class="form-control" >
-				</div> 
+					<input readonly="readonly" th:value="${billitems.id}" type="text" name="id" class="form-control" >
+				</div>
+				<div class="mb-3">
+					<label class="form-label">name:</label>
+					<input  th:value="${billitems.name}" type="text" name="name" class="form-control" >
+				</div>
+				<div class="mb-3">
+					<label class="form-label">buyPrice:</label>
+					<input  th:value="${billitems.buyPrice}" type="text" name="buyPrice" class="form-control" >
+				</div>
 				<div class="mb-3">
 					<label class="form-label">Quantity:</label>
 					<textarea name="content" th:text="${billitems.quantity}" class="form-control">
@@ -25,17 +33,15 @@
 				<div class="mb-3">
 					<label class="form-label">Product Id:</label> 
 					<select name="product.id" class="form-control">
-						
 						<option th:each="p : ${products}" th:value="${p.id}"
 							th:text="${p.name}" th:selected="${p.id == billitems.product.id}"></option>
 					</select>
 				</div>
 					<div class="mb-3">
 					<label class="form-label">Bill Id:</label> 
-					<select name="bill.billId" class="form-control">
-						
-						<option th:each="r : ${bills}" th:value="${r.id}"
-							th:text="${r.name}" th:selected="${r.id == billitems.bill.id}"></option>
+					<select name="bill.id" class="form-control">
+						<option th:each="b : ${bills}" th:value="${b.id}"
+							th:text="${b.name}" th:selected="${b.id == billitems.bill.id}"></option>
 					</select>
 				</div>
 				

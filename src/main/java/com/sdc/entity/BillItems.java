@@ -20,7 +20,7 @@ import lombok.Data;
 public class BillItems {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int billItemsId;
+	private int id;
 
 	private int quantity;
 

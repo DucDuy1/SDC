@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html layout:decorator="home.html">
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Thống kê người mua</title>
+</head>
+<body>
+	<div layout:fragment="content" class="col-12 col-sm-9">
+		<div class="row">
+
+				<table class="table table-bordered">
+					<thead>
+					<tr>
+						<th>Quantity</th>
+						<th>User</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr th:each="bill : ${statisticalUsers}">
+							<td th:text="${bill.quantity}"></td>
+							<td th:text="${bill.user}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+</body>
+</html>

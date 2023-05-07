@@ -47,8 +47,9 @@ public class CouponService {
 		return "coupon/update.html";
 	}
 
-	@PostMapping("/update")
-	public String update(Coupon coupon) {
+	public String update(Coupon coupon, String expired_date)throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		coupon.setExpiredDate(dateFormat.parse(expired_date));
 		couponRepo.save(coupon);
 		return "redirect:/coupon/search";
 	}

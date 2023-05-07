@@ -40,8 +40,8 @@ public class CouponController {
 	}
 
 	@PostMapping("/update")
-	public String update(@ModelAttribute Coupon coupon) {
-		return couponService.update(coupon);
+	public String update(@ModelAttribute Coupon coupon, @RequestParam("expired_date") String expired_date)throws ParseException {
+		return couponService.update(coupon, expired_date);
 	}
 
 	@GetMapping("/delete")

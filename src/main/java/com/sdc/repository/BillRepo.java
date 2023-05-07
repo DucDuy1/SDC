@@ -13,18 +13,6 @@ import com.sdc.entity.Bill;
 
 public interface BillRepo extends JpaRepository<Bill, Integer> {
 	//Page<Bill> findByAgeGreaterThanEqual(Date from);
-	
-	@Query("SELECT u FROM Bill u WHERE u.buyDate >= :from")
-	Page<Bill> searchByFrom(@Param("from") Date from, Pageable pageable);
-
-	@Query("SELECT u FROM Bill u WHERE u.buyDate <= :to")
-	Page<Bill> searchByTo(@Param("to") Date to, Pageable pageable);
-
-	@Query("SELECT u FROM Bill u WHERE u.buyDate >= :from " + "AND u.buyDate <= :to")
-	Page<Bill> searchByFromTo(@Param("from") Date from, @Param("to") Date to, Pageable pageable);
-
-	@Query("SELECT u FROM Bill u JOIN u.user r " + "WHERE r.id = :rId")
-	Page<Bill> searchByUser(@Param("rId") int userId, Pageable pageable);
 
 	@Query("SELECT u FROM Bill u JOIN u.user r " + "WHERE r.username = :rName")
 	Page<Bill> searchByNameUser(@Param("rName") String nameUser, Pageable pageable);
@@ -38,10 +26,10 @@ public interface BillRepo extends JpaRepository<Bill, Integer> {
 	List<Bill> searchByDate(@Param("date") Date date);
 
 	@Query("SELECT count(b.id) AS SL , MONTH(buyDate) AS thang FROM Bill b GROUP BY MONTH(buyDate)")
-	List<Object[]> thongKeTheoThang();
+	List<Object[]> statisticalBillByMonth();
 
 	@Query("SELECT count(b.id) AS SL , u.username AS username FROM Bill b JOIN b.user u GROUP BY u.username")
-	List<Object[]> thongKeTheoNguoiMua();
+	List<Object[]> statisticalByUser();
 
 	@Query("SELECT count(b.id) AS SL , c.couponCode AS couponCode FROM Bill b INNER JOIN Coupon c ON b.couponCode = c.couponCode GROUP BY c.couponCode")
 	List<Object[]> thongKeTheoCoupon();

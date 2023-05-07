@@ -46,7 +46,7 @@ public class BillItemsController {
 
 	@GetMapping("/search")
 	public String search(Model model, @RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "billItemsId", required = false) Integer billItemsId,
+			@RequestParam(name = "id", required = false) Integer billItemsId,
 			@RequestParam(name = "idBill", required = false) Integer idBill,
 			@RequestParam(name = "productId", required = false) Integer productId,
 			@RequestParam(name = "sortBy", required = false) Integer sortBy,

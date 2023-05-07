@@ -3,23 +3,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Thống kê người mua</title>
+<title>Statistical Bill By Month</title>
 </head>
 <body>
 	<div layout:fragment="content" class="col-12 col-sm-9">
 		<div class="row">
-
 				<table class="table table-bordered">
 					<thead>
 					<tr>
-						<th>So Luong</th>
-						<th>Nguoi mua</th>
+						<th>Quantity</th>
+						<th>Month</th>
 					</tr>
 					</thead>
 					<tbody>
-						<tr th:each="bill : ${thongKeTheoNguoiMuas}">
-							<td th:text="${bill.soLuong}"></td>
-							<td th:text="${bill.nguoiMua}"></td>
+						<tr th:each="bill : ${statisticalBills}">
+							<td th:text="${bill.quantity}"></td>
+							<td th:text="${bill.byMonth}"></td>
 						</tr>
 					</tbody>
 				</table>

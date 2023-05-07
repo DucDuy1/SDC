@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Search BillItems</title>
-
 </head>
 <body>
 	<div layout:fragment="content" class="col-12 col-sm-9">
@@ -36,14 +34,12 @@
 							</select>
 						</div>
 					</div>
-
 					<div class="col-12 col-md-2">
 						<button type="submit" class="btn btn-primary">Search</button>
 					</div>
 					<div class="col-12 col-md-2">
 						<a th:href="@{/billitems/create}" class="btn btn-success">Add</a>
 					</div>
-
 				</div>
 			</form>
 		</div>
@@ -56,23 +52,23 @@
 						<th>Name</th>
 						<th>Quantity</th>
 						<th>Price</th>
-						<th>Bill Id</th>
-						<th>Product Id</th>
+						<th>Bill</th>
+						<th>Product</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="billitems : ${list}">
-						<td th:text="${billitems.billItemsId}"></td>
+						<td th:text="${billitems.id}"></td>
 						<td th:text="${billitems.name}"></td>
 						<td th:text="${billitems.quantity}"></td>
 						<td th:text="${billitems.buyPrice}"></td>
-						<td th:text="${billitems.bill.id}"></td>
-						<td th:text="${billitems.product.id}"></td>
+						<td th:text="${billitems.bill.name}"></td>
+						<td th:text="${billitems.product.name}"></td>
 						<td><a class="text-danger"
-							th:href="@{'/billitems/delete?id=' + ${billitems.billItemsId}}">Delete</a>
+							th:href="@{'/billitems/delete?id=' + ${billitems.id}}">Delete</a>
 							<a
-							th:href="@{'/billitems/update?id=' + ${billitems.billItemsId}}">Update</a>
+							th:href="@{'/billitems/update?id=' + ${billitems.id}}">Update</a>
 						</td>
 					</tr>
 				</tbody>
@@ -80,18 +76,17 @@
 			<ul class="pagination">
 				<li th:if="${totalPage > 0}" class="page-item"><a
 					class="page-link"
-					th:href="@{'/billitems/search?page='+ ${page - 1 < 0 ? 0 : (page - 1)} + '&name=' + ${name} + '&idBill' + '&productId=' + ${idBill} + ${productId}}">Previous</a></li>
-
+					th:href="@{'/billitems/search?page='+ ${page - 1 < 0 ? 0 : (page - 1)} + '&name=' + ${name} + '&idBill' + '&productId=' + ${idBill} + ${productId}}">Previous</a>
+				</li>
 				<li th:if="${totalPage > 0}"
 					th:each="i: ${#numbers.sequence(0, totalPage - 1)}"
 					class="page-item"><a class="page-link"
 					th:href="@{'/billitems/search?page='+ ${i} + '&name=' + ${name} + '&idBill' + '&productId=' + ${idBill} + ${productId}}"
 					th:text="${i}"></a></li>
-
 				<li th:if="${totalPage > 0}" class="page-item"><a
 					class="page-link"
-					th:href="@{'/billitems/search?page='+ ${page + 1 >= totalPage ? (totalPage - 1) : (page + 1) } + '&name=' + ${name} + '&idBill' + '&productId=' + ${idBill} + ${productId}}">Next</a></li>
-
+					th:href="@{'/billitems/search?page='+ ${page + 1 >= totalPage ? (totalPage - 1) : (page + 1) } + '&name=' + ${name} + '&idBill' + '&productId=' + ${idBill} + ${productId}}">Next</a>
+				</li>
 			</ul>
 		</div>
 	</div>

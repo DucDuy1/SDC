@@ -14,15 +14,6 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 	@Query("SELECT u FROM Product u WHERE u.name LIKE :x")
 	Page<Product> searchAll(@Param("x") String s, Pageable pageable);
 
-	@Query("SELECT u FROM Product u WHERE u.id = uId ")
-	Page<Product> searchById(@Param("uId") Long id, Pageable pageable);
-
 	@Query("SELECT u FROM Product u JOIN u.category c " + "WHERE c.id = :cId")
-	Page<Product> searchByCategory(@Param("cId") int categoryId, Pageable pageable);
-
-	@Query("SELECT u FROM Product u JOIN u.category c " + "WHERE c.name = :cName")
-	Page<Product> searchByNameCategory(@Param("cName") String categoryName, Pageable pageable);
-
-	@Query("SELECT p FROM Product p WHERE p.id = pId ")
-	Product get(Long pId);
+	Page<Product> searchByIdCategory(@Param("cId") int categoryId, Pageable pageable);
 }
