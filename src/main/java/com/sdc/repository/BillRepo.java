@@ -21,7 +21,7 @@ public interface BillRepo extends JpaRepository<Bill, Integer> {
 
 	@Query("SELECT u FROM Bill u JOIN u.user r " + "WHERE r.id = :rId" + " AND u.buyDate >= :from "
 			+ " AND u.buyDate <= :to AND u.name LIKE :x")
-	Page<Bill> searchByAll(@Param("rId") int userId, @Param("from") Date from, @Param("to") Date to,
+	Page<Bill> searchByDateBill(@Param("rId") int userId, @Param("from") Date from, @Param("to") Date to,
 			@Param("x") String name, Pageable pageable);
 
 	@Query("SELECT u FROM Bill u WHERE u.buyDate >= :date")

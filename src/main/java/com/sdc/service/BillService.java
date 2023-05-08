@@ -109,7 +109,7 @@ public class BillService {
 		} else if (name != null && userId != null && fromDate != null && toDate != null && !fromDate.trim().isEmpty()
 				&& !toDate.trim().isEmpty()) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Page<Bill> pageBill = billRepo.searchByAll(userId, sdf.parse(fromDate), sdf.parse(toDate), name, pageable);
+			Page<Bill> pageBill = billRepo.searchByDateBill(userId, sdf.parse(fromDate), sdf.parse(toDate), name, pageable);
 			model.addAttribute("list", pageBill.toList());
 			model.addAttribute("totalPage", pageBill.getTotalPages());
 		} else {
