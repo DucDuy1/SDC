@@ -10,9 +10,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.sdc.entity.Bill;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BillRepo extends JpaRepository<Bill, Integer> {
-	//Page<Bill> findByAgeGreaterThanEqual(Date from);
+	//Page<Bill> findByDateGreaterThanEqual(Date from);
 
 	@Query("SELECT u FROM Bill u JOIN u.user r " + "WHERE r.username = :rName")
 	Page<Bill> searchByNameUser(@Param("rName") String nameUser, Pageable pageable);
